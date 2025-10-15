@@ -1,8 +1,23 @@
-﻿class DebugRenderer
+﻿using OpenTK.Windowing.Desktop;
+
+namespace GB_DebugRender 
 {
-    static void Main(string[] args) 
+    class DebugRenderer
     {
-        Emulator emulator = new Emulator();
-        emulator.Init();
+        static void Main(string[] args) 
+        {
+            Emulator emulator = new Emulator();
+            emulator.Init();
+    
+            NativeWindowSettings nativeSettings = new NativeWindowSettings()
+            {
+                ClientSize = new OpenTK.Mathematics.Vector2i(1280, 720),
+                Title = "GB-DebugRenderer",
+            };
+    
+            Window window = new Window(GameWindowSettings.Default, nativeSettings);
+    
+            window.Run();
+        }
     }
 }

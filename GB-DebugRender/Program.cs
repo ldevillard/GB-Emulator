@@ -13,6 +13,7 @@ namespace GB_DebugRender
             {
                 ClientSize = new OpenTK.Mathematics.Vector2i(1280, 720),
                 Title = "GB-DebugRenderer",
+                Icon = Window.CreateWindowIcon()
             };
     
             Window window = new Window(GameWindowSettings.Default, nativeSettings);

@@ -2,9 +2,12 @@
 using ImGuiNET;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Windowing.Common;
+using OpenTK.Windowing.Common.Input;
 using OpenTK.Windowing.Desktop;
-using OpenTK.Windowing.GraphicsLibraryFramework;
+using SixLabors.ImageSharp.PixelFormats;
+using System;
 using System.Numerics;
+using System.Runtime.InteropServices;
 
 namespace GB_DebugRender
 {
@@ -80,6 +83,19 @@ namespace GB_DebugRender
             ImGui.DockSpace(dockspaceId, System.Numerics.Vector2.Zero, ImGuiDockNodeFlags.None);
 
             ImGui.End();
+        }
+
+        public static WindowIcon CreateWindowIcon()
+        {
+            SixLabors.ImageSharp.Image<Rgba32> image = SixLabors.ImageSharp.Image.Load<Rgba32>("Resources/GB-Emulator.png");
+
+            if (!image.DangerousTryGetSinglePixelMemory(out var memory))
+                throw new InvalidOperationException("Impossible de lire les pixels de l'image.");
+
+            byte[] imageBytes = MemoryMarshal.AsBytes(memory.Span).ToArray();
+
+            Image otkImage = new Image(image.Width, image.Height, imageBytes);
+            return new WindowIcon(otkImage);
         }
     }
 }

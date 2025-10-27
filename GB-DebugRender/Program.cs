@@ -7,8 +7,13 @@ namespace GB_DebugRender
         static void Main(string[] args) 
         {
             Emulator emulator = new Emulator();
-            emulator.Init();
-    
+            if (!emulator.LoadROM("Resources/tetris.gb"))
+            {
+                return;
+            }
+
+            string ROMTitle = emulator.GetROMTitle();
+
             NativeWindowSettings nativeSettings = new NativeWindowSettings()
             {
                 ClientSize = new OpenTK.Mathematics.Vector2i(1280, 720),
@@ -16,7 +21,7 @@ namespace GB_DebugRender
                 Icon = Window.CreateWindowIcon()
             };
     
-            Window window = new Window(GameWindowSettings.Default, nativeSettings);
+            Window window = new Window(emulator, GameWindowSettings.Default, nativeSettings);
     
             window.Run();
         }

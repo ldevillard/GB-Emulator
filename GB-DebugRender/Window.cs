@@ -14,10 +14,12 @@ namespace GB_DebugRender
     class Window : GameWindow
     {
         ImGuiController imguiController = null;
+        Emulator emulator;
 
-        public Window(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings)
+        public Window(Emulator emulator, GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings)
             : base(gameWindowSettings, nativeWindowSettings)
         {
+            this.emulator = emulator;
         }
 
         protected override void OnLoad()
@@ -28,7 +30,7 @@ namespace GB_DebugRender
             imguiController = new ImGuiController(ClientSize.X, ClientSize.Y);
             
             ImGuiIOPtr io = ImGui.GetIO();
-            io.FontGlobalScale = 1.25f;
+            io.FontGlobalScale = 1.0f;
         }
 
         protected override void OnRenderFrame(FrameEventArgs args)
@@ -42,8 +44,8 @@ namespace GB_DebugRender
             SetupDockingSpace();
 
             ImGui.Begin("Debug Window");
-            ImGui.Text("Hello ImGui + OpenTK !");
             ImGui.Text($"Window size: {ClientSize.X} x {ClientSize.Y}");
+            ImGui.Text($"ROM loaded: " + emulator.GetROMTitle());
             ImGui.End();
 
             imguiController.Render();

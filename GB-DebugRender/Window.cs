@@ -92,7 +92,7 @@ namespace GB_DebugRender
             SixLabors.ImageSharp.Image<Rgba32> image = SixLabors.ImageSharp.Image.Load<Rgba32>("Resources/GB-Emulator.png");
 
             if (!image.DangerousTryGetSinglePixelMemory(out var memory))
-                throw new InvalidOperationException("Impossible de lire les pixels de l'image.");
+                throw new InvalidOperationException("Unable to get image pixel data.");
 
             byte[] imageBytes = MemoryMarshal.AsBytes(memory.Span).ToArray();
 

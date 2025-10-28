@@ -26,11 +26,20 @@ namespace GB_DebugRender
         {
             base.OnLoad();
 
+            emulator.Initialize();
+
             GL.ClearColor(0.1f, 0.2f, 0.3f, 1.0f);
             imguiController = new ImGuiController(ClientSize.X, ClientSize.Y);
             
             ImGuiIOPtr io = ImGui.GetIO();
             io.FontGlobalScale = 1.0f;
+        }
+
+        protected override void OnUpdateFrame(FrameEventArgs args)
+        {
+            base.OnUpdateFrame(args);
+
+            emulator.Update();
         }
 
         protected override void OnRenderFrame(FrameEventArgs args)

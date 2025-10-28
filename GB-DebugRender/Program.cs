@@ -12,8 +12,6 @@ namespace GB_DebugRender
                 return;
             }
 
-            string ROMTitle = emulator.GetROMTitle();
-
             NativeWindowSettings nativeSettings = new NativeWindowSettings()
             {
                 ClientSize = new OpenTK.Mathematics.Vector2i(1280, 720),
@@ -21,7 +19,10 @@ namespace GB_DebugRender
                 Icon = Window.CreateWindowIcon()
             };
     
-            Window window = new Window(emulator, GameWindowSettings.Default, nativeSettings);
+            GameWindowSettings gameWindowSettings = GameWindowSettings.Default;
+            gameWindowSettings.UpdateFrequency = 59.7275; // Approximation of GameBoy refresh rate
+
+            Window window = new Window(emulator, gameWindowSettings, nativeSettings);
     
             window.Run();
         }
